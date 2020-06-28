@@ -35,11 +35,11 @@ export default class Login extends React.Component {
           navigate('/app/profile')
         }}
       >
-        <label>
+        <label htmlFor='username'>
           Username
           <input type='text' name='username' onChange={this.handleUpdate} />
         </label>
-        <label>
+        <label htmlFor='password'>
           Password
           <input
             type='password'
