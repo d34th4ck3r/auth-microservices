@@ -9,14 +9,17 @@ def index():
     user = get_user()
     if user:
       return jsonify({
+        'code': '200',
         'name': user,
-        'desc': 'This is a logged in user.',
+        'message': 'This is a logged in user.',
       })
     return jsonify({
+      'code': '200',
       'message': 'This is Anon user.',
     })
   except Exception as e:
     return jsonify({
+      'code': '401',
       'message': 'This is Anon user.',
       'error':  str(e)
     })
@@ -28,11 +31,11 @@ def login():
   password = request.form.get('password')
   if(username=='gautam' and password=='scooby'):  #Hard Coded Username/Password (NOTE: Do not use in production!)
     return jsonify({
-      'success': 'true',
+      'code': '200',
       'auth_token': generate_auth_token(username).decode(),
     })
   return jsonify({
-    'success': 'false',
+    'code': '401',
     'message': 'Incorrect user/pass.',
   })
 
@@ -42,12 +45,14 @@ def login():
 def profile():
   try:
     return jsonify({
+      'code': '200',
       'name': get_user(),
       'message': 'This is a private page.',
     })
   except Exception as e:
     return jsonify({
-      'message:' 'Unable to access resource: ' + str(e),
+      'code': '403',
+      'message': 'Unable to access resource: ' + str(e),
     })
 
 app.run()
