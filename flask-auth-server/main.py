@@ -1,36 +1,8 @@
 import json
 from flask import Flask, jsonify, request
-import jwt
-import datetime
+from jwt_helper import generate_auth_token, decode_auth_token
 
 app = Flask(__name__)
-
-SECRET_KEY = 'MY_SECRET'
-
-def encode_auth_token():
-  try:
-    payload = {
-      'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=5),
-      'iat': datetime.datetime.utcnow(),
-      'sub': 'gautam',
-    }
-    return jwt.encode(
-      payload,
-      SECRET_KEY,
-      algorithm='HS256',
-    )
-  except Exception as e:
-    return e
-
-def decode_auth_token(auth_token):
-  try:
-    return jwt.decode(auth_token, SECRET_KEY)
-  except jwt.InvalidSignatureError:
-    return 'Invalid Signature'
-  except jwt.ExpiredSignatureError:
-    return 'Signature Expired. Login again.'
-  except jwt.InvalidTokenError:
-    return 'Invalid Token. Login again to get valid token.'
 
 @app.route('/')
 def index():
@@ -39,13 +11,26 @@ def index():
     'desc': 'I am a Software Developer.',
   })
 
+
 @app.route('/login', methods=['POST'])
 def login():
+  auth_header = request.headers.get('Authorization')
   username = request.form.get('username')
   password = request.form.get('password')
+  if auth_header:
+    auth_token = auth_header.split(" ")[1]
+    if auth_token:
+      payload = decode_auth_token(auth_token)
+      print(payload)
+      if payload['sub'] == username:
+        return jsonify({
+          'success': 'true',
+          'message': "Already signed in",
+        })
   if(username=='gautam' and password=='scooby'):  #Hard Coded Username/Password (NOTE: Do not use in production!)
     return jsonify({
       'success': 'true',
+      'auth_token': generate_auth_token(username).decode(),
     })
   return jsonify({
     'success': 'false'
