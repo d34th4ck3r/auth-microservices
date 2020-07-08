@@ -4,6 +4,7 @@ from flask import request, jsonify
 
 SECRET_KEY = 'MY_SECRET'
 
+
 def generate_auth_token(username):
   try:
     payload = {
@@ -38,14 +39,11 @@ def login_required(func):
           return func(*args, **kwargs)
       else:
         return jsonify({
-          'success': 'false',
+          'code': '403',
           'message': 'Need JWT to access this endpoint',
         })
     except Exception as e:
-      return jsonify({
-      'success': 'false',
-      'message': str(e),
-    })
+      raise e
   return wrapper
       
 

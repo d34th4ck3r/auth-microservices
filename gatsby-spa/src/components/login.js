@@ -1,7 +1,7 @@
 import React from "react"
 
 import { navigate } from "gatsby"
-import { isLoggedIn } from "../services/auth"
+import { isLoggedIn, getUser } from "../services/auth"
 
 export default class Login extends React.Component {
   state = {
@@ -17,7 +17,26 @@ export default class Login extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    // handleLogin(this.state)
+    let formData = new FormData();
+    formData.append('username', this.state.username);
+    formData.append('password', this.state.password);
+
+    const requestOptions = {
+      method: 'POST',
+      body: formData,
+    };
+    
+
+    fetch('http://127.0.0.1:5000/login', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        if(data.code === '200'){
+          window.localStorage.setItem('auth_token', data.auth_token);
+          getUser();
+        }else{
+          console.log("Incorrect creds.");
+        }
+      })
   }
 
   render() {
