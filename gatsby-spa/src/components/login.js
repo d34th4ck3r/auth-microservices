@@ -1,7 +1,7 @@
 import React from "react"
 
 import { navigate } from "gatsby"
-import { handleLogin, isLoggedIn } from "../services/auth"
+import { isLoggedIn } from "../services/auth"
 
 export default class Login extends React.Component {
   state = {
@@ -17,7 +17,7 @@ export default class Login extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    handleLogin(this.state)
+    // handleLogin(this.state)
   }
 
   render() {

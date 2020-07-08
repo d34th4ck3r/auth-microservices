@@ -5,24 +5,29 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+  response = None
   try:
     user = get_user()
     if user:
-      return jsonify({
+      response =jsonify({
         'code': '200',
         'name': user,
         'message': 'This is a logged in user.',
       })
-    return jsonify({
+    response = jsonify({
       'code': '200',
       'message': 'This is Anon user.',
     })
   except Exception as e:
-    return jsonify({
+    response = jsonify({
       'code': '401',
       'message': 'This is Anon user.',
       'error':  str(e)
     })
+  response.headers.add("Access-Control-Allow-Origin", "*")
+  response.headers.add('Access-Control-Allow-Headers', "*")
+  response.headers.add('Access-Control-Allow-Methods', "*")
+  return response
   
 
 @app.route('/login', methods=['POST'])
