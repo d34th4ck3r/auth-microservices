@@ -45,9 +45,8 @@ export const getUser = () => {
 
 
 export const isLoggedIn = () => {
-  fetchUser();
-  let user = getUser();
-  return !!user;
+  const auth_token = window.localStorage.getItem('auth_token');
+  return !!auth_token;
 }
 
 export const logout = callback => {

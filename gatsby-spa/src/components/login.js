@@ -33,14 +33,11 @@ export default class Login extends React.Component {
         if(data.code === '200'){
           window.localStorage.setItem('auth_token', data.auth_token);
           fetchUser();
-          that.setState({
-            username: getUser(),
-          })
+          this.setState(this.state);
         }else{
           console.log("Incorrect creds.");
         }
       })
-
   }
 
   render() {
@@ -50,7 +47,6 @@ export default class Login extends React.Component {
 
     return (
       <>
-      {this.state.username}
       <h1>Log In</h1>
       <form
         method="POST"

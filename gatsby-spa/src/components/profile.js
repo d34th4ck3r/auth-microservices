@@ -6,7 +6,7 @@ const Profile = () => (
     <h1>Your profile</h1>
     <ul>
       <li>Name: {getUser()} </li>
-      <li>E-mail: {getUser().email} </li>
+      <li>E-mail: {getUser()} </li>
     </ul>
   </>
 )
