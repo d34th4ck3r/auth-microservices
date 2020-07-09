@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 
 export const isBrowser = () => typeof window !== 'undefined'
 
-export const getUser = () => {
+export const fetchUser = () => {
 
   let user = window.localStorage.getItem('user');
   if(!!user){
@@ -39,10 +39,14 @@ export const getUser = () => {
 const setUser = user =>
   window.localStorage.setItem('user', user);
 
+export const getUser = () => {
+  return window.localStorage.getItem('user');
+}
+
 
 export const isLoggedIn = () => {
-  const user = getUser();
-
+  fetchUser();
+  let user = getUser();
   return !!user;
 }
 

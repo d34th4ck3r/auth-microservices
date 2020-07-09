@@ -6,7 +6,7 @@ export default function NavBar() {
 
   let greetingMessage = ''
   if(isLoggedIn()) {
-    greetingMessage = `Hello ${getUser().name}`
+    greetingMessage = `Hello ${getUser()}`
   }else {
     greetingMessage = `You are not logged in`
   }

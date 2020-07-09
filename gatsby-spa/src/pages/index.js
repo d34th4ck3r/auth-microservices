@@ -6,7 +6,7 @@ import { getUser, isLoggedIn } from "../services/auth"
 export default function Home() {
   return (
     <Layout>
-      <h1>Hello {isLoggedIn()? getUser().name : "world"}!</h1>
+      <h1>Hello {isLoggedIn()? getUser() : "world"}!</h1>
       <p>
         {isLoggedIn() ? (
           <>
