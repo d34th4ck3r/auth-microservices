@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react"
 
 export const isBrowser = () => typeof window !== 'undefined'
 
-export const fetchUser = () => {
+export const fetchUser = async () => {
 
   let user = window.localStorage.getItem('user');
   if(!!user){
@@ -22,8 +22,7 @@ export const fetchUser = () => {
     }),
   }
 
-  console.log("Here 1");
-  fetch('http://127.0.0.1:5000/profile', requestParams)
+  await fetch('http://127.0.0.1:5000/profile', requestParams)
     .then(response => response.json())
     .then(data => {
       if(data.code === '200'){
