@@ -51,4 +51,5 @@ export const isLoggedIn = () => {
 export const logout = callback => {
   window.localStorage.removeItem('auth_token');
   window.localStorage.removeItem('user');
+  callback();
 }
