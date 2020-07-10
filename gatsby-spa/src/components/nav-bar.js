@@ -1,7 +1,8 @@
 import React from "react"
 import { Link, navigate } from "gatsby"
 import ReactDOMServer from 'react-dom/server';
-import { Username, isLoggedIn, logout } from '../services/auth'
+import { isLoggedIn, logout } from '../services/auth'
+import { Username } from "../components/username"
 
 export default function NavBar() {
 

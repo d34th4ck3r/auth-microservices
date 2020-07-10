@@ -1,7 +1,8 @@
 import React from "react"
 import Layout from "../components/layout"
 import { Link } from "gatsby"
-import { Username, isLoggedIn } from "../services/auth"
+import { isLoggedIn } from "../services/auth"
+import {Username} from "../components/username"
 
 export default function Home() {
   return (

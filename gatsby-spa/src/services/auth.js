@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from "react"
 import { navigate } from "gatsby";
 
 
 export const isBrowser = () => typeof window !== 'undefined'
 
-export const Username = () => {
-
-  const [username, setUsername] = useState('') 
+export const fetchFromAuthServer = (endpoint, callback) => {
 
   const auth_token = window.localStorage.getItem('auth_token');
   if(!auth_token){
@@ -19,24 +16,19 @@ export const Username = () => {
     }),
   }
 
-  let user;
-  fetch('http://127.0.0.1:5000/profile', requestParams)
+  fetch('http://127.0.0.1:5000' + endpoint, requestParams)
     .then(response => response.json())
     .then(data => {
       if(data && data.code === '200'){
-        setUsername(data.name)
+        callback(data);
       }else{
         logout()
       }
     })
-    .then(d => user = d)
 
-  return (
-    <>
-      {username}
-    </>
-  )
 }
+
+
 
 export const isLoggedIn = () => {
   const auth_token = window.localStorage.getItem('auth_token');
