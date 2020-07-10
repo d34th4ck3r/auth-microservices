@@ -1,15 +1,9 @@
 import React from "react"
 import { Link, navigate } from "gatsby"
-import { getUser, isLoggedIn, logout } from '../services/auth'
+import ReactDOMServer from 'react-dom/server';
+import { Username, isLoggedIn, logout } from '../services/auth'
 
 export default function NavBar() {
-
-  let greetingMessage = ''
-  if(isLoggedIn()) {
-    greetingMessage = `Hello ${getUser()}`
-  }else {
-    greetingMessage = `You are not logged in`
-  }
 
   return (
     <div
@@ -20,7 +14,12 @@ export default function NavBar() {
         borderBottom: "1px solid #d1c1e0",
       }}
     >
-      <span> {greetingMessage} </span>
+      { isLoggedIn() ? 
+      <span> Hello <Username/> </span>
+      : 
+       <span> You are not logged in </span>
+      }
+      
       <nav>
         <Link to="/">Home</Link>
         {` `}
@@ -31,7 +30,7 @@ export default function NavBar() {
             href='/'
             onClick={event => {
               event.preventDefault()
-              logout(() => navigate(`/app/login`))
+              logout()
             }}
           >
             Log out

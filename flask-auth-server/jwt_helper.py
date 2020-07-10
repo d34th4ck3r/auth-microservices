@@ -42,8 +42,11 @@ def login_required(func):
           'code': '403',
           'message': 'Need JWT to access this endpoint',
         })
-    except Exception as e:
-      raise e
+    except:
+      return jsonify({
+        'code': '403',
+        'message': 'Invalid Token. Please login again.'
+      })
   return wrapper
       
 

@@ -1,12 +1,12 @@
 import React from "react"
 import Layout from "../components/layout"
 import { Link } from "gatsby"
-import { getUser, isLoggedIn } from "../services/auth"
+import { Username, isLoggedIn } from "../services/auth"
 
 export default function Home() {
   return (
     <Layout>
-      <h1>Hello {isLoggedIn()? getUser() : "world"}!</h1>
+      <h1>Hello {isLoggedIn()? <Username /> : "world"}!</h1>
       <p>
         {isLoggedIn() ? (
           <>

@@ -1,7 +1,7 @@
 import React from "react"
 
 import { navigate } from "gatsby"
-import { isLoggedIn, getUser, fetchUser } from "../services/auth"
+import { isLoggedIn } from "../services/auth"
 
 export default class Login extends React.Component {
   state = {
@@ -37,7 +37,6 @@ export default class Login extends React.Component {
       })
 
     if(isLoggedIn()){
-      await fetchUser();
       this.setState(this.state);
     }
   }
